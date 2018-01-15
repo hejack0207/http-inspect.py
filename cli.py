@@ -11,7 +11,4 @@ except ImportError:
     # If you installed this package via pip, you just need to execute this
     from scapy.layers import http
 
-packets = scapy.sniff(filter='host 10.0.51.14',count=4)
-for p in packets:
-    print '=' * 78
-    p.show()
+scapy.sniff(filter='host 10.0.51.14',rn=lambda pkt: "%s" % (pkt.summary()))
