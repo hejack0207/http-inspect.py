@@ -9,7 +9,9 @@ def printer(pkt):
         return pkt.sprintf("{IP:%IP.src% -> %IP.dst%\n}{HTTPRequest:%HTTPRequest.Path%\n}")
     elif http.HTTPResponse in pkt:
         #pkt.show()
-        return pkt.sprintf("{IP:%IP.src% -> %IP.dst%\n}{HTTPResponse:%HTTPResponse.Status-Line%\n}{RAW:%RAW.load%\n}")
+        return pkt.sprintf("{IP:%IP.dst% <- %IP.src%\n}{HTTPResponse:%HTTPResponse.Status-Line%\n}{Raw:%Raw.load%}")
+    elif http.HTTP in pkt:
+        return pkt.sprintf("{Raw:%Raw.load%}")
     else:
         return None
 
