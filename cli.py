@@ -5,7 +5,10 @@ import scapy.all as scapy
 from scapy.layers import http
 
 def printer(pkt):
-    return pkt.sprintf("{IP:%IP.src% -> %IP.dst%\n}{Raw:%Raw.load%\n}")
+    if http.HTTP in pkt:
+        return pkt.sprintf("{IP:%IP.src% -> %IP.dst%\n}{Raw:%Raw.load%\n}")
+    else:
+        None
 
 def sniff(filter):
     #scapy.sniff(filter=filter,prn=lambda x:x.sprintf("{IP:%IP.src% -> %IP.dst%\n}{Raw:%Raw.load%\n}"))
