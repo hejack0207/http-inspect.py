@@ -15,8 +15,11 @@ def printer(pkt):
     else:
         return None
 
-def sniff(filter):
-    scapy.sniff(filter=filter,prn=printer)
+def sniff(filter,summary=False):
+    if summary:
+        scapy.sniff(filter=filter,prn=lambda x:x.summary())
+    else:
+        scapy.sniff(filter=filter,prn=printer)
 
 if __name__ == '__main__':
     fire.Fire(sniff)
